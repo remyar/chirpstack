@@ -77,8 +77,3 @@ services:
 volumes:
   postgresqldata:
   redisdata:
-
-networks:
-  default:
-    # Use a custom driver
-    driver: host
