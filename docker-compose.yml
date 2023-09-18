@@ -33,7 +33,7 @@ services:
     depends_on: 
       - mosquitto
     networks:
-        - rabbit
+        - chirpstack
   
   chirpstack-gateway-bridge-basicstation:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -44,7 +44,7 @@ services:
     volumes:
       - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
     networks:
-      - rabbit
+      - chirpstack
 
   chirpstack-rest-api:
     image: chirpstack/chirpstack-rest-api:4
@@ -64,7 +64,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=root
     networks:
-      - rabbit
+      - chirpstack
 
   redis:
     image: redis:7-alpine
@@ -72,7 +72,7 @@ services:
     volumes:
       - redisdata:/data
     networks:
-      - rabbit
+      - chirpstack
 
   mosquitto:
     build:
@@ -82,7 +82,7 @@ services:
     ports:
       - 1883:1883
     networks:
-      - rabbit
+      - chirpstack
 
 volumes:
   postgresqldata:
