@@ -95,5 +95,4 @@ volumes:
 networks:
   chirpstack:
       driver: bridge
-      Internal: false
       attachable: true
