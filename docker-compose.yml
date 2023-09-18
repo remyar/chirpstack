@@ -18,6 +18,8 @@ services:
       - POSTGRESQL_HOST=postgres
     ports:
       - 8080:8080
+    networks:
+      - chirpstack
 
   chirpstack-gateway-bridge:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -53,6 +55,8 @@ services:
     ports:
       - 8090:8090
     depends_on:
+      - chirpstack
+    networks:
       - chirpstack
 
   postgres:
@@ -91,3 +95,4 @@ volumes:
 networks:
   chirpstack:
       driver: bridge
+      attachable: true
