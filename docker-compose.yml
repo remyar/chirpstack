@@ -18,8 +18,6 @@ services:
       - POSTGRESQL_HOST=postgres
     ports:
       - 8080:8080
-    networks:
-      - chirpstack
 
   chirpstack-gateway-bridge:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -34,8 +32,6 @@ services:
       - INTEGRATION__MQTT__COMMAND_TOPIC_TEMPLATE=eu868/gateway/{{ .GatewayID }}/command/#
     depends_on: 
       - mosquitto
-    networks:
-        - chirpstack
   
   chirpstack-gateway-bridge-basicstation:
     image: chirpstack/chirpstack-gateway-bridge:4
@@ -45,8 +41,6 @@ services:
       - 3001:3001
     volumes:
       - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
-    networks:
-      - chirpstack
 
   chirpstack-rest-api:
     image: chirpstack/chirpstack-rest-api:4
@@ -55,8 +49,6 @@ services:
     ports:
       - 8090:8090
     depends_on:
-      - chirpstack
-    networks:
       - chirpstack
 
   postgres:
@@ -67,16 +59,12 @@ services:
       - postgresqldata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
-    networks:
-      - chirpstack
 
   redis:
     image: redis:7-alpine
     restart: unless-stopped
     volumes:
       - redisdata:/data
-    networks:
-      - chirpstack
 
   mosquitto:
     build:
@@ -85,14 +73,7 @@ services:
     restart: always
     ports:
       - 1883:1883
-    networks:
-      - chirpstack
 
 volumes:
   postgresqldata:
   redisdata:
-
-networks:
-  chirpstack:
-      driver: bridge
-      attachable: true
