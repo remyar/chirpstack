@@ -1,0 +1,40 @@
+version: '3.6'
+
+networks:
+  chirpstack_chirpstack:
+    external: true
+  tracklog:
+    driver: overlay
+    attachable: true
+
+volumes:
+  postgresqldata:
+    driver: local
+    
+services:
+
+  TracklogJoinServer:
+    image: localhost:5000/tracklogjoinserver:latest
+    environment:
+      - MQTT_URL=http://mosquitto:1883
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack_chirpstack
+
+  postgresql:
+    image: tracklog/postgresql:latest
+    environment:
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - postgresqldata:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - tracklog

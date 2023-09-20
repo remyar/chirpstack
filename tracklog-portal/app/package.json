@@ -1,0 +1,38 @@
+{
+  "name": "tracklogportal",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
+    "react": "^18.2.0",
+    "body-parser": "^1.20.2",
+    "react-dom": "^18.2.0",
+    "react-intl": "^6.2.8",
+    "isomorphic-fetch": "^3.0.0",
+    "react-router-dom": "^6.8.1",
+    "notistack": "^2.0.8",
+    "react-datepicker": "^4.10.0",
+    "@craco/craco": "^7.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

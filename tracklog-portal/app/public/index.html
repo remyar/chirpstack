@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>var global = global || window;</script>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Tracklog</title>
+    <style>
+        .background {
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            opacity: 0.1;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .alice-carousel__stage-item {
+            text-align: center !important;
+        }
+
+        .alice-carousel__prev-btn {
+            position: absolute !important;
+            top: calc(50% - 17px) !important;
+            left: 0 !important;
+            text-align: left !important;
+            border: 1px solid !important;
+            border-radius: 16px !important;
+            width: auto !important;
+        }
+
+        .alice-carousel__next-btn {
+            position: absolute !important;
+            top: calc(50% - 17px) !important;
+            right: 0 !important;
+            text-align: right !important;
+            border: 1px solid !important;
+            border-radius: 16px !important;
+            width: auto !important;
+        }
+    </style>
+</head>
+
+<body>
+    <img style="position:fixed ; right:0 ; top:0 ; z-index: 9999;" src="beta.png">
+    <!--<img class="background" src="https://img.wallpapic.fr/i654-547-121/thumb/voiture-de-sport-voitures-supercar-coupe-fond-d-ecran.jpg">-->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <img style="position: absolute;
+        top: calc(50% - 32px);
+        left: calc(50% - 32px);" src="setting.gif">
+
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+</body>
+
+</html>

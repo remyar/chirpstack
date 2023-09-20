@@ -1,0 +1,105 @@
+version: '3.6'
+
+networks:
+  chirpstack:
+    driver: overlay
+    attachable: true
+
+volumes:
+  postgresqldata:
+    driver: local
+  redisdata:
+    driver: local
+
+services:
+
+  chirpstack:
+    image: localhost:5000/chirpstack:4
+    environment:
+      - MQTT_BROKER_HOST=mosquitto
+      - REDIS_HOST=redis
+      - POSTGRESQL_HOST=postgres
+    ports:
+      - mode: host
+        target: 8080
+        published: 8080
+    depends_on: 
+      - mosquitto
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
+
+  chirpstack-rest-api:
+    image: localhost:5000/chirpstack-rest-api:latest
+    ports:
+      - mode: host
+        target: 8090
+        published: 8090
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
+    depends_on: 
+      - chirpstack
+
+  chirpstack-gateway-bridge:
+    image: localhost:5000/chirpstack-gateway-bridge:4
+
+    ports:
+      - mode: host
+        target: 1700
+        published: 1700
+        protocol : udp
+    depends_on: 
+      - mosquitto
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
+      
+  mosquitto:
+    image: localhost:5000/mosquitto:latest
+    ports:
+      - 1883:1883
+      - 9001:9001
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
+
+  postgres:
+    image: localhost:5000/postgresql:latest
+    environment:
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - postgresqldata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
+
+  redis:
+    image: localhost:5000/redis:latest
+    volumes:
+      - redisdata:/data
+    ports:
+      - 6379:6379
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - chirpstack
